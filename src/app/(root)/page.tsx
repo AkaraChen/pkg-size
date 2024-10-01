@@ -3,6 +3,7 @@
 import { cn, titleFont } from '@/utils/css'
 import { useState } from 'react'
 import { Search, StartButton } from './component'
+import { toast } from 'sonner'
 
 function range(start: number, end: number) {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i)
@@ -26,6 +27,7 @@ export default function Home() {
                         if (selected.length < 5) {
                             return [...selected, name]
                         }
+                        toast.error('You can only select up to 5 packages')
                         return selected
                     })
                 }}
