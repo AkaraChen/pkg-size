@@ -89,7 +89,7 @@ export const Search: FC<SearchProps> = props => {
                                                     }}
                                                     className={cn(
                                                         isSelected &&
-                                                            'text-zinc-500',
+                                                            'text-zinc-500 dark:text-zinc-600',
                                                         'flex',
                                                     )}
                                                 >

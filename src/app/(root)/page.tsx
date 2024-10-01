@@ -60,7 +60,7 @@ export default function Home() {
                                     className={cn(
                                         'mr-2 size-2',
                                         hasValue
-                                            ? 'bg-black'
+                                            ? 'bg-black dark:bg-white'
                                             : 'border border-black dark:border-white',
                                     )}
                                 ></span>
