@@ -14,7 +14,7 @@ But... When you have a list of packages to compare, you have to check them one b
 
 ## Screenshot
 
-<video src="./assets/screenshot.mp4"></video>
+https://github.com/user-attachments/assets/63809d99-7b3a-4485-a43a-1584ca55e5dc
 
 ## TODO
 
