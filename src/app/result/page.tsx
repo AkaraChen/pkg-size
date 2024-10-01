@@ -56,7 +56,7 @@ export default async function Page({ searchParams }: PageProps) {
                         'result',
                         'https://packagephobia.com/',
                     )
-                    packagephobia.searchParams.set('p', smallest.name)
+                    packagephobia.searchParams.set('p', size.name)
                     const npmjs = new URL(
                         `package/${size.name}`,
                         'https://www.npmjs.com/',

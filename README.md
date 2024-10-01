@@ -12,6 +12,10 @@ And... You can't know how much space a package will take before you install it (
 
 But... When you have a list of packages to compare, you have to check them one by one. That's why I made this tool.
 
+## Screenshot
+
+<video src="./assets/screenshot.mp4"></video>
+
 ## TODO
 
 -   [x] Figma design (https://www.figma.com/design/uUXrkzYipTrj4LY6RWkGK9/Pkg-Size)
