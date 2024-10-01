@@ -24,9 +24,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
                         <Link href={'/'}>
                             <h1 className='text-2xl'>Package size</h1>
                         </Link>
-                        <div>
+                        <a
+                            href={'https://github.com/akarachen/pkg-size'}
+                            target='_blank'
+                        >
                             <SiGithub size={32} />
-                        </div>
+                        </a>
                     </div>
                 </header>
                 <main className='h-full overflow-scroll'>
@@ -43,7 +46,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
                             height={40}
                         />
                         <div className='flex flex-col text-lg'>
-                            <p>AkaraChen</p>
+                            <a href={'https://akr.moe'} target='_blank'>
+                                AkaraChen
+                            </a>
                             <p className='ml-auto'>
                                 {new Date().getFullYear()}
                             </p>

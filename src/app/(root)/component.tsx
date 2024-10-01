@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { ResponseData } from '../api/npm/route'
 import {
