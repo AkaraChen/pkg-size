@@ -6,6 +6,7 @@ import { cn, contentFont } from '@/utils/css'
 import { PropsWithChildren } from 'react'
 import { SiGithub } from '@icons-pack/react-simple-icons'
 import blogpostIcon from '@/assets/blog-post.svg'
+import blogpostDarkIcon from '@/assets/blog-post-dark.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Providers } from './providers'
@@ -44,6 +45,14 @@ export default function RootLayout({ children }: PropsWithChildren) {
                             alt='Blog post icon'
                             width={40}
                             height={40}
+                            className='dark:hidden'
+                        />
+                        <Image
+                            src={blogpostDarkIcon}
+                            alt='Blog post icon'
+                            width={40}
+                            height={40}
+                            className='hidden dark:block'
                         />
                         <div className='flex flex-col text-lg'>
                             <a href={'https://akr.moe'} target='_blank'>
