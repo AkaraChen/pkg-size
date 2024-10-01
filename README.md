@@ -16,4 +16,4 @@ But... When you have a list of packages to compare, you have to check them one b
 
 -   [x] Figma design (https://www.figma.com/design/uUXrkzYipTrj4LY6RWkGK9/Pkg-Size)
 -   [x] Backend API
--   [ ] Frontend UI
+-   [x] Frontend UI
