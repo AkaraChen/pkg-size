@@ -19,8 +19,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <html lang='en' className='h-full'>
             <body className={cn(contentFont.className, 'flex h-full flex-col')}>
-                <header className='basis-32 border-b border-black'>
-                    <div className='container m-auto flex h-full w-full items-center justify-between border-x border-black px-12'>
+                <header className='basis-32 border-b border-black dark:border-white'>
+                    <div className='container m-auto flex h-full w-full items-center justify-between border-x border-black px-12 dark:border-white'>
                         <Link href={'/'}>
                             <h1 className='text-2xl'>Package size</h1>
                         </Link>
@@ -30,12 +30,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
                     </div>
                 </header>
                 <main className='h-full overflow-scroll'>
-                    <div className='container m-auto h-full w-full overflow-auto border-x border-black p-12'>
+                    <div className='container m-auto h-full w-full overflow-auto border-x border-black p-12 dark:border-white'>
                         <Providers>{children}</Providers>
                     </div>
                 </main>
-                <footer className='basis-32 border-t border-black'>
-                    <div className='container m-auto flex h-full w-full items-center justify-between border-x border-black px-12'>
+                <footer className='basis-32 border-t border-black dark:border-white'>
+                    <div className='container m-auto flex h-full w-full items-center justify-between border-x border-black px-12 dark:border-white'>
                         <Image
                             src={blogpostIcon}
                             alt='Blog post icon'

@@ -1,9 +1,8 @@
 'use client'
 
 import { cn, titleFont } from '@/utils/css'
-import Link from 'next/link'
 import { useState } from 'react'
-import { Search } from './component'
+import { Search, StartButton } from './component'
 
 function range(start: number, end: number) {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i)
@@ -11,8 +10,6 @@ function range(start: number, end: number) {
 
 export default function Home() {
     const [selected, setSelected] = useState<string[]>([])
-    const search = new URLSearchParams()
-    search.set('selections', selected.join(','))
     return (
         <div className='flex h-full w-full flex-col items-center'>
             <h2
@@ -39,8 +36,8 @@ export default function Home() {
                 }}
                 selected={selected}
             />
-            <div className='mb-8 mt-auto flex h-12 w-[800px] border-l border-dashed border-black'>
-                <div className='flex w-full items-center gap-4 border-y border-dashed border-black px-4'>
+            <div className='mb-8 mt-auto flex h-12 w-[800px] border-l border-dashed border-black dark:border-white'>
+                <div className='flex w-full items-center gap-4 border-y border-dashed border-black px-4 dark:border-white'>
                     {range(0, 5).map(i => {
                         const value = selected.at(i)
                         const hasValue = value !== undefined
@@ -64,7 +61,7 @@ export default function Home() {
                                         'mr-2 size-2',
                                         hasValue
                                             ? 'bg-black'
-                                            : 'border border-black',
+                                            : 'border border-black dark:border-white',
                                     )}
                                 ></span>
                                 <label htmlFor={`package-${i}`}>
@@ -74,11 +71,7 @@ export default function Home() {
                         )
                     })}
                 </div>
-                <Link href={`/result?${search}`} className='block'>
-                    <button className='h-full w-full bg-black px-8 text-white'>
-                        Start
-                    </button>
-                </Link>
+                <StartButton selected={selected} />
             </div>
         </div>
     )

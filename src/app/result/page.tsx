@@ -47,12 +47,12 @@ export default async function Page({ searchParams }: PageProps) {
             <div className='my-8 flex flex-col gap-8'>
                 {data.map(size => (
                     <div className='space-y-2' key={size.name}>
-                        <label className='inline-flex bg-black px-4 py-2 text-white'>
+                        <label className='inline-flex bg-black px-4 py-2 text-white dark:bg-white dark:text-black'>
                             {size.name}
                         </label>
-                        <div className='w-full border border-black p-2'>
+                        <div className='w-full border border-black p-2 dark:border-white'>
                             <div
-                                className='flex h-full min-w-fit items-center justify-center bg-black/75 px-4 py-1 text-white'
+                                className='flex h-full min-w-fit items-center justify-center bg-black/75 px-4 py-1 text-white dark:bg-white dark:text-black'
                                 style={{
                                     width: `${(size.install.bytes / largest.install.bytes) * 100}%`,
                                 }}

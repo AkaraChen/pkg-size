@@ -13,6 +13,8 @@ import { Check } from 'lucide-react'
 import { Loading } from '@/components/loading'
 import { match, P } from 'ts-pattern'
 import { useInView } from 'react-intersection-observer'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 interface SearchProps {
     onSubmit: (name: string) => void
@@ -49,7 +51,7 @@ export const Search: FC<SearchProps> = props => {
         <Popover>
             <PopoverTrigger>
                 <input
-                    className='mt-12 w-[800px] border border-black p-4 outline-none placeholder:text-black'
+                    className='mt-12 w-[800px] border border-black p-4 outline-none placeholder:text-black dark:border-white dark:bg-black dark:placeholder:text-white'
                     placeholder='Search Packages...'
                     value={keyword}
                     onChange={e => setKeyword(e.target.value)}
@@ -59,52 +61,84 @@ export const Search: FC<SearchProps> = props => {
                 className='h-96 w-[800px] overflow-auto'
                 onOpenAutoFocus={e => e.preventDefault()}
             >
-                {match(query)
-                    .with({ data: P.nonNullable }, ({ data }) => {
-                        return (
-                            <div>
-                                {data?.pages
-                                    .flatMap(p => p)
-                                    .map(d => {
-                                        const isSelected = selected.includes(
-                                            d.package.name,
-                                        )
-                                        return (
-                                            <div
-                                                key={d.package.name}
-                                                onClick={() => {
-                                                    if (isSelected) {
-                                                        onRemove(d.package.name)
-                                                    } else {
-                                                        onSubmit(d.package.name)
-                                                    }
-                                                }}
-                                                className={cn(
-                                                    isSelected &&
-                                                        'text-zinc-500',
-                                                    'flex',
-                                                )}
-                                            >
-                                                {d.package.name}
-                                                <span className='ml-auto'>
-                                                    {isSelected && (
-                                                        <Check size={20} />
+                {keyword ? (
+                    match(query)
+                        .with({ data: P.nonNullable }, ({ data }) => {
+                            return (
+                                <div>
+                                    {data?.pages
+                                        .flatMap(p => p)
+                                        .map(d => {
+                                            const isSelected =
+                                                selected.includes(
+                                                    d.package.name,
+                                                )
+                                            return (
+                                                <div
+                                                    key={d.package.name}
+                                                    onClick={() => {
+                                                        if (isSelected) {
+                                                            onRemove(
+                                                                d.package.name,
+                                                            )
+                                                        } else {
+                                                            onSubmit(
+                                                                d.package.name,
+                                                            )
+                                                        }
+                                                    }}
+                                                    className={cn(
+                                                        isSelected &&
+                                                            'text-zinc-500',
+                                                        'flex',
                                                     )}
-                                                </span>
-                                            </div>
-                                        )
-                                    })}
-                            </div>
-                        )
-                    })
-                    .with({ isLoading: true }, () => {
-                        return <Loading>Loading...</Loading>
-                    })
-                    .otherwise(() => {
-                        return <div>Waiting for input...</div>
-                    })}
+                                                >
+                                                    {d.package.name}
+                                                    <span className='ml-auto'>
+                                                        {isSelected && (
+                                                            <Check size={20} />
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            )
+                                        })}
+                                </div>
+                            )
+                        })
+                        .with({ isLoading: true }, () => {
+                            return <Loading>Loading...</Loading>
+                        })
+                        .otherwise(() => null)
+                ) : (
+                    <div>Waiting for input...</div>
+                )}
                 <div ref={endRef}></div>
             </PopoverContent>
         </Popover>
+    )
+}
+
+export interface StartButtonProps {
+    selected: string[]
+}
+
+export const StartButton: FC<StartButtonProps> = props => {
+    const { selected } = props
+    const search = new URLSearchParams()
+    search.set('selections', selected.join(','))
+    const router = useRouter()
+    return (
+        <button
+            className='bg-black px-8 text-white dark:bg-white dark:text-black'
+            onClick={() => {
+                if (selected.length === 0) {
+                    toast.error('Please select at least one package')
+                    return
+                }
+                router.push(`/result?${search.toString()}`)
+            }}
+        >
+            Start
+        </button>
     )
 }
