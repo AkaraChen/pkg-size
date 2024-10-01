@@ -10,10 +10,13 @@
         "format": "prettier --write ."
     },
     "dependencies": {
+        "@icons-pack/react-simple-icons": "^10.0.0",
+        "@tanstack/react-query": "^5.56.2",
         "next": "14.2.13",
         "react": "^18",
         "react-dom": "^18",
-        "tailwind-merge": "^2.5.2"
+        "tailwind-merge": "^2.5.2",
+        "tailwindcss-animated": "^1.1.2"
     },
     "devDependencies": {
         "@types/node": "^20",

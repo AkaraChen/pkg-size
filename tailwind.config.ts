@@ -1,4 +1,6 @@
-import type { Config } from 'tailwindcss'
+/* eslint-disable @typescript-eslint/no-require-imports */
+
+import { type Config } from 'tailwindcss'
 
 const config: Config = {
     content: [
@@ -12,8 +14,17 @@ const config: Config = {
                 background: 'var(--background)',
                 foreground: 'var(--foreground)',
             },
+            container: {
+                screens: {
+                    sm: '640px',
+                    md: '768px',
+                    lg: '1024px',
+                    xl: '1280px',
+                    '2xl': '1400px',
+                },
+            },
         },
     },
-    plugins: [],
+    plugins: [require('tailwindcss-animated')],
 }
 export default config
