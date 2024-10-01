@@ -1,6 +1,5 @@
 import { PageProps } from '@/types'
 import { cn, titleFont } from '@/utils/css'
-import Link from 'next/link'
 
 interface PkgSize {
     name: string

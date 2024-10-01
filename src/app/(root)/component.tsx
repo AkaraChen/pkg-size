@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { ResponseData } from '../api/npm/route'
 import {
@@ -89,7 +89,7 @@ export const Search: FC<SearchProps> = props => {
                                                     }}
                                                     className={cn(
                                                         isSelected &&
-                                                            'text-zinc-500 dark:text-zinc-600',
+                                                            'text-zinc-500 dark:text-zinc-400',
                                                         'flex',
                                                     )}
                                                 >

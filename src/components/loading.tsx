@@ -3,9 +3,7 @@ import Image from 'next/image'
 import loadingIcon from '@/assets/loading.svg'
 import { FC, PropsWithChildren } from 'react'
 
-interface LoadingProps extends PropsWithChildren {}
-
-export const Loading: FC<LoadingProps> = props => {
+export const Loading: FC<PropsWithChildren> = props => {
     const { children } = props
     return (
         <div className='flex h-full flex-col items-center justify-center gap-4'>
