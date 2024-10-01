@@ -1,7 +1,7 @@
 'use client'
 
 import { FC, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { ResponseData } from '../api/npm/route'
 import {
     Popover,
@@ -12,6 +12,7 @@ import { cn } from '@/utils/css'
 import { Check } from 'lucide-react'
 import { Loading } from '@/components/loading'
 import { match, P } from 'ts-pattern'
+import { useInView } from 'react-intersection-observer'
 
 interface SearchProps {
     onSubmit: (name: string) => void
@@ -22,14 +23,27 @@ interface SearchProps {
 export const Search: FC<SearchProps> = props => {
     const { onSubmit, selected, onRemove } = props
     const [keyword, setKeyword] = useState('')
-    const query = useQuery({
+    const query = useInfiniteQuery({
         queryKey: ['search', keyword],
-        queryFn: async () => {
+        initialPageParam: 0,
+        queryFn: async ({ pageParam = 1, signal }) => {
             const url = new URL('/api/npm', window.location.href)
             url.searchParams.set('keyword', keyword)
-            return fetch(url).then(res => res.json()) as Promise<ResponseData>
+            url.searchParams.set('page', pageParam.toString())
+            return fetch(url, {
+                signal,
+            }).then(res => res.json()) as Promise<ResponseData>
         },
-        enabled: Boolean(keyword),
+        getNextPageParam: (_, __, lastPageParams) => {
+            return lastPageParams + 1
+        },
+    })
+    const { ref: endRef } = useInView({
+        onChange(inView) {
+            if (inView) {
+                query.fetchNextPage()
+            }
+        },
     })
     return (
         <Popover>
@@ -49,34 +63,37 @@ export const Search: FC<SearchProps> = props => {
                     .with({ data: P.nonNullable }, ({ data }) => {
                         return (
                             <div>
-                                {data?.map(d => {
-                                    const isSelected = selected.includes(
-                                        d.package.name,
-                                    )
-                                    return (
-                                        <div
-                                            key={d.package.name}
-                                            onClick={() => {
-                                                if (isSelected) {
-                                                    onRemove(d.package.name)
-                                                } else {
-                                                    onSubmit(d.package.name)
-                                                }
-                                            }}
-                                            className={cn(
-                                                isSelected && 'text-zinc-500',
-                                                'flex',
-                                            )}
-                                        >
-                                            {d.package.name}
-                                            <span className='ml-auto'>
-                                                {isSelected && (
-                                                    <Check size={20} />
+                                {data?.pages
+                                    .flatMap(p => p)
+                                    .map(d => {
+                                        const isSelected = selected.includes(
+                                            d.package.name,
+                                        )
+                                        return (
+                                            <div
+                                                key={d.package.name}
+                                                onClick={() => {
+                                                    if (isSelected) {
+                                                        onRemove(d.package.name)
+                                                    } else {
+                                                        onSubmit(d.package.name)
+                                                    }
+                                                }}
+                                                className={cn(
+                                                    isSelected &&
+                                                        'text-zinc-500',
+                                                    'flex',
                                                 )}
-                                            </span>
-                                        </div>
-                                    )
-                                })}
+                                            >
+                                                {d.package.name}
+                                                <span className='ml-auto'>
+                                                    {isSelected && (
+                                                        <Check size={20} />
+                                                    )}
+                                                </span>
+                                            </div>
+                                        )
+                                    })}
                             </div>
                         )
                     })
@@ -86,6 +103,7 @@ export const Search: FC<SearchProps> = props => {
                     .otherwise(() => {
                         return <div>Waiting for input...</div>
                     })}
+                <div ref={endRef}></div>
             </PopoverContent>
         </Popover>
     )
