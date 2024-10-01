@@ -23,7 +23,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 <header className='basis-32 border-b border-black dark:border-white'>
                     <div className='container m-auto flex h-full w-full items-center justify-between border-x border-black px-12 dark:border-white'>
                         <Link href={'/'}>
-                            <h1 className='text-2xl'>Package size</h1>
+                            <h1 className='select-none text-2xl'>
+                                Package size
+                            </h1>
                         </Link>
                         <a
                             href={'https://github.com/akarachen/pkg-size'}
@@ -54,7 +56,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
                             height={40}
                             className='hidden dark:block'
                         />
-                        <div className='flex flex-col text-lg'>
+                        <div className='flex select-none flex-col text-lg'>
                             <a href={'https://akr.moe'} target='_blank'>
                                 AkaraChen
                             </a>

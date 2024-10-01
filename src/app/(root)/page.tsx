@@ -12,7 +12,7 @@ function range(start: number, end: number) {
 export default function Home() {
     const [selected, setSelected] = useState<string[]>([])
     return (
-        <div className='flex h-full w-full flex-col items-center'>
+        <div className='flex h-full w-full select-none flex-col items-center'>
             <h2
                 className={cn(
                     titleFont.className,

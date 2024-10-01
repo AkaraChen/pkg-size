@@ -39,9 +39,14 @@ export default async function Page({ searchParams }: PageProps) {
 
     return (
         <div>
-            <h1 className={cn(titleFont.className, 'text-5xl leading-normal')}>
+            <h1
+                className={cn(
+                    titleFont.className,
+                    'select-none text-5xl leading-normal',
+                )}
+            >
                 The Successor is... <br />
-                <span className='text-4xl'>
+                <span className='select-all text-4xl'>
                     {smallest.name}({smallest.install.pretty})
                 </span>
             </h1>
