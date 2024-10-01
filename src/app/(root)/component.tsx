@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { ResponseData } from '../api/npm/route'
 import {
@@ -22,15 +22,32 @@ interface SearchProps {
     selected: string[]
 }
 
+function useDebouncedValue(value: string, delay: number) {
+    const [debouncedValue, setDebouncedValue] = useState<string>(value)
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(value)
+        }, delay)
+
+        return () => {
+            clearTimeout(handler)
+        }
+    }, [value, delay])
+
+    return debouncedValue
+}
+
 export const Search: FC<SearchProps> = props => {
     const { onSubmit, selected, onRemove } = props
     const [keyword, setKeyword] = useState('')
+    const debouncedKeyword = useDebouncedValue(keyword, 500)
     const query = useInfiniteQuery({
-        queryKey: ['search', keyword],
+        queryKey: ['search', debouncedKeyword],
         initialPageParam: 0,
         queryFn: async ({ pageParam = 1, signal }) => {
             const url = new URL('/api/npm', window.location.href)
-            url.searchParams.set('keyword', keyword)
+            url.searchParams.set('keyword', debouncedKeyword)
             url.searchParams.set('page', pageParam.toString())
             return fetch(url, {
                 signal,
