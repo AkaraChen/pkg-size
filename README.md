@@ -15,5 +15,5 @@ But... When you have a list of packages to compare, you have to check them one b
 ## TODO
 
 -   [x] Figma design (https://www.figma.com/design/uUXrkzYipTrj4LY6RWkGK9/Pkg-Size)
--   [ ] Backend API
+-   [x] Backend API
 -   [ ] Frontend UI
