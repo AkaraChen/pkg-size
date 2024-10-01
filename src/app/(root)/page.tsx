@@ -1,7 +1,9 @@
 'use client'
 
 import { cn, titleFont } from '@/utils/css'
+import Link from 'next/link'
 import { useState } from 'react'
+import { Search } from './component'
 
 function range(start: number, end: number) {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i)
@@ -9,7 +11,8 @@ function range(start: number, end: number) {
 
 export default function Home() {
     const [selected, setSelected] = useState<string[]>([])
-    const [keyword, setKeyword] = useState('')
+    const search = new URLSearchParams()
+    search.set('selections', selected.join(','))
     return (
         <div className='flex h-full w-full flex-col items-center'>
             <h2
@@ -20,13 +23,23 @@ export default function Home() {
             >
                 Find the real cost <br /> of a package
             </h2>
-            <input
-                className='mt-12 w-[640px] border border-black p-4 outline-none placeholder:text-black'
-                placeholder='Search Packages...'
-                value={keyword}
-                onChange={e => setKeyword(e.target.value)}
+            <Search
+                onSubmit={name => {
+                    setSelected(selected => {
+                        if (selected.length < 5) {
+                            return [...selected, name]
+                        }
+                        return selected
+                    })
+                }}
+                onRemove={name => {
+                    setSelected(selected => {
+                        return selected.filter(selection => selection !== name)
+                    })
+                }}
+                selected={selected}
             />
-            <div className='mb-8 mt-auto flex h-12 w-[640px] border-l border-dashed border-black'>
+            <div className='mb-8 mt-auto flex h-12 w-[800px] border-l border-dashed border-black'>
                 <div className='flex w-full items-center gap-4 border-y border-dashed border-black px-4'>
                     {range(0, 5).map(i => {
                         const value = selected.at(i)
@@ -61,7 +74,11 @@ export default function Home() {
                         )
                     })}
                 </div>
-                <button className='bg-black px-8 text-white'>Start</button>
+                <Link href={`/result?${search}`} className='block'>
+                    <button className='h-full w-full bg-black px-8 text-white'>
+                        Start
+                    </button>
+                </Link>
             </div>
         </div>
     )

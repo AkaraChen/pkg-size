@@ -1,3 +1,5 @@
+'use'
+
 import type { Metadata } from 'next'
 import './globals.css'
 import { cn, contentFont } from '@/utils/css'
@@ -6,6 +8,7 @@ import { SiGithub } from '@icons-pack/react-simple-icons'
 import blogpostIcon from '@/assets/blog-post.svg'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Providers } from './providers'
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -27,8 +30,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
                     </div>
                 </header>
                 <main className='h-full overflow-scroll'>
-                    <div className='container m-auto h-full w-full border-x border-black p-12'>
-                        {children}
+                    <div className='container m-auto h-full w-full overflow-auto border-x border-black p-12'>
+                        <Providers>{children}</Providers>
                     </div>
                 </main>
                 <footer className='basis-32 border-t border-black'>

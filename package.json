@@ -11,8 +11,11 @@
     },
     "dependencies": {
         "@icons-pack/react-simple-icons": "^10.0.0",
+        "@radix-ui/react-popover": "^1.1.1",
         "@tanstack/react-query": "^5.56.2",
+        "lucide-react": "^0.446.0",
         "next": "14.2.13",
+        "query-registry": "^3.0.1",
         "react": "^18",
         "react-dom": "^18",
         "tailwind-merge": "^2.5.2",
