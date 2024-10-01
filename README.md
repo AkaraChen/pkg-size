@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Package Size
 
-## Getting Started
+A tool to compare the actual sizes of several npm packages (referring to the size added when installed into `node_modules`).
 
-First, run the development server:
+## Why
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+As we all know, `node_modules` sucks：
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![blackhole](./assets/blackhole.png)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+And... You can't know how much space a package will take before you install it (npmjs.com only shows the size of the package itself, not the size of its dependencies). So `bundlephobia` / `packagephobia` / `pkg-size` is born to help you with that.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+But... When you have a list of packages to compare, you have to check them one by one. That's why I made this tool.
 
-## Learn More
+## TODO
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [x] Figma design (https://www.figma.com/design/uUXrkzYipTrj4LY6RWkGK9/Pkg-Size)
+- [ ] Backend API
+- [ ] Frontend UI
